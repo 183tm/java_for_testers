@@ -18,4 +18,21 @@ public class TriangleTest {
         Assertions.assertEquals(34,(new Triangle(14.0, 10.0, 10.0).perimeter()));
     }
 
+    @Test
+    void cannotCreateSquareWithNegativeSide() {
+        try {
+            new Triangle(-5, 5, 9);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+        }
+    }
+
+    @Test
+    void cantCreateTriangleWithUncorrectSumOfTwoSides() {
+        try {
+            new Triangle(2, 3, 8);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+        }
+    }
 }
