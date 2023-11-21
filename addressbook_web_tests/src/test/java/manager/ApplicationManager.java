@@ -14,9 +14,9 @@ public class ApplicationManager {
 
     public void init(String browser) {
         if (driver == null) {
-            if("chrome".equals(browser)) {
+            if ("chrome".equals(browser)) {
                 driver = new ChromeDriver();
-            } else if ("firefox".equals(browser)){
+            } else if ("firefox".equals(browser)) {
                 driver = new FirefoxDriver();
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
@@ -28,14 +28,14 @@ public class ApplicationManager {
         }
     }
 
-    public LoginHelper session(){
-    if (session == null) {
-        session = new LoginHelper(this);
-    }
-    return session;
+    public LoginHelper session() {
+        if (session == null) {
+            session = new LoginHelper(this);
+        }
+        return session;
     }
 
-    public GroupHelper groups(){
+    public GroupHelper groups() {
         if (groups == null) {
             groups = new GroupHelper(this);
         }
@@ -49,6 +49,6 @@ public class ApplicationManager {
         } catch (NoSuchElementException exception) {
             return false;
         }
-        }
+    }
 
 }
