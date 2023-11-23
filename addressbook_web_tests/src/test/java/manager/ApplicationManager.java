@@ -12,6 +12,8 @@ public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
 
+    private ContactsHelper contacts;
+
     public void init(String browser) {
         if (driver == null) {
             if ("chrome".equals(browser)) {
@@ -40,6 +42,13 @@ public class ApplicationManager {
             groups = new GroupHelper(this);
         }
         return groups;
+    }
+
+    public ContactsHelper contacts() {
+        if (contacts == null) {
+            contacts = new ContactsHelper(this);
+        }
+        return contacts;
     }
 
     public boolean isElementPresent(By locator) {
