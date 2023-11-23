@@ -1,33 +1,14 @@
-package tests;
+package manager;
 
-import manager.ApplicationManager;
 import model.ContactData;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-public class TestBase {
-    protected static ApplicationManager app;
-    protected static WebDriver driver;
+public class ContactHelper extends HelperBase{
 
-    protected static void returnToHomepage(By home_page) {
-        initContactCreation(home_page);
+    public ContactHelper (ApplicationManager manager){
+        super(manager);
     }
-
-    protected static void clickSubmitBtnCreateContact(String cssSelector) {
-        driver.findElement(By.cssSelector(cssSelector));
-    }
-
-    @BeforeEach
-    public void setUp() {
-        if (app == null) {
-            app = new ApplicationManager();
-        }
-        app.init(System.getProperty("browser", "chrome"));
-
-    }
-
-    public void canFillContactForm(ContactData contact) {
+    private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.first_name());
         type(By.name("middlename"), contact.middle_name());
         type(By.name("lastname"), contact.last_name());
@@ -46,6 +27,7 @@ public class TestBase {
         type(By.name("address2"), contact.address_secondary());
         type(By.name("phone2"), contact.home());
         type(By.name("notes"), contact.notes());
+
     }
     public void createContact(ContactData contact) {
         initContactCreation();
