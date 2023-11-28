@@ -9,12 +9,6 @@ public class ContactsHelper extends HelperBase {
         super(manager);
     }
 
-
-    public boolean isContactPresent() {
-        openHomePage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
-
     private void openHomePage() {
         manager.driver.findElement(By.linkText("home")).click();
     }
@@ -53,13 +47,26 @@ public class ContactsHelper extends HelperBase {
 
     public void removeContact() {
         openHomePage();
-        canSelectedSmthng();
-        canRemoveContact();
+        selectedContact();
+        removedSelectedContacts();
+        closeAlert();
         openHomePage();
     }
 
-    private void canRemoveContact() {
+    public void modifyContact(ContactData modifiedContact) {
+        openHomePage();
+        selectedContact();
+        initContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        openHomePage();
+    }
+
+    private void removedSelectedContacts() {
         manager.driver.findElement(By.xpath("//input[contains(@value,'Delete')]")).click();
+    }
+
+    private void closeAlert() {
         manager.driver.switchTo().alert().accept();
     }
 
@@ -67,9 +74,35 @@ public class ContactsHelper extends HelperBase {
         click(By.xpath("(//input[@name=\'submit\'])"));
     }
 
-    protected void canSelectedSmthng() {
+    protected void selectedContact() {
         click(By.name("selected[]"));
     }
 
 
+    public int getContactCount() {
+        openHomePage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    private void initContactModification() {
+        click(By.xpath("(//img[@alt='Edit'])"));
+    }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    public void removeAllContact() {
+        openHomePage();
+        selectAllContacts();
+        removedSelectedContacts();
+        closeAlert();
+    }
+
+    private void selectAllContacts() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
 }
