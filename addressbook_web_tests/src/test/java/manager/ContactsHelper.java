@@ -42,9 +42,9 @@ public class ContactsHelper extends HelperBase {
         openHomePage();
     }
 
-    public void modifyContact(ContactData modifiedContact) {
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
-        selectedContact(null);
+        selectedContact(contact);
         initContactModification();
         fillContactForm(modifiedContact);
         submitContactModification();
