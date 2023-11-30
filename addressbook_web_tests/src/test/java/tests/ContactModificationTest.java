@@ -23,9 +23,9 @@ public class ContactModificationTest extends TestBase {
         app.contacts().modifyContact(oldContacts.get(index), testData);
         var newContacts = app.contacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.set(index,testData.withId(oldContacts.get(index).id()));
+        expectedList.set(index, testData.withId(oldContacts.get(index).id()));
         Comparator<ContactData> compareById = (o1, o2) -> {
-           return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newContacts.sort(compareById);
         expectedList.sort(compareById);

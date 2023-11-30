@@ -44,8 +44,7 @@ public class ContactsHelper extends HelperBase {
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
-        selectedContact(contact);
-        initContactModification();
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         openHomePage();
@@ -73,8 +72,8 @@ public class ContactsHelper extends HelperBase {
         return manager.driver.findElements(By.name("selected[]")).size();
     }
 
-    private void initContactModification() {
-        click(By.xpath("(//img[@alt='Edit'])"));
+    private void initContactModification(ContactData contact) {
+        click(By.cssSelector(String.format("a[href=\"edit.php?id=%s\"] > img", contact.id())));
     }
 
     private void submitContactModification() {
