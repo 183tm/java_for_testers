@@ -15,7 +15,7 @@ dependencies {
     implementation 'com.mikemybytes:junit5-formatted-source-parent:1.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-    testImplementation 'org.seleniumhq.selenium:selenium-java:4.15.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
 }
 
 test {
