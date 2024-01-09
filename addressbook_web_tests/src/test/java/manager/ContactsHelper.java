@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Paths;
+
 
 public class ContactsHelper extends HelperBase {
 
@@ -26,7 +26,7 @@ public class ContactsHelper extends HelperBase {
         type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
         type(By.name("nickname"), contact.nickname());
-        attach(By.name("photo"), contact.photo());
+        //attach(By.name("photo"), contact.photo());
     }
 
     public void createNewContact(ContactData contact) {

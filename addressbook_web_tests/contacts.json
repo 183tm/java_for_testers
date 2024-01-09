@@ -1,22 +1,23 @@
-[ {
-  "id" : "",
-  "firstname" : "",
-  "middlename" : "",
-  "lastname" : "",
-  "nickname" : "",
-  "photo" : "src\\test\\resources\\images\\raff.png"
-}, {
-  "id" : "",
-  "firstname" : "ijxzkuvmho",
-  "middlename" : "",
-  "lastname" : "mjwgecdxqn",
-  "nickname" : "lsemkcihsw",
-  "photo" : "src\\test\\resources\\images\\neznajka.png"
-}, {
-  "id" : "",
-  "firstname" : "srtwwylfgcvzbcjpcwmy",
-  "middlename" : "",
-  "lastname" : "kvyqgkcpbadlimbhsruu",
-  "nickname" : "ainzhscjyabmisbbvdqp",
-  "photo" : "src\\test\\resources\\images\\neznajka.png"
-} ]
+[
+  {
+    "id": "",
+    "firstname": "",
+    "middlename": "",
+    "lastname": "",
+    "nickname": ""
+  },
+  {
+    "id": "",
+    "firstname": "ijxzkuvmho",
+    "middlename": "",
+    "lastname": "mjwgecdxqn",
+    "nickname": "lsemkcihsw"
+  },
+  {
+    "id": "",
+    "firstname": "srtwwylfgcvzbcjpcwmy",
+    "middlename": "",
+    "lastname": "kvyqgkcpbadlimbhsruu",
+    "nickname": "ainzhscjyabmisbbvdqp"
+  }
+]

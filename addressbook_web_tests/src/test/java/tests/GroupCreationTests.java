@@ -34,7 +34,7 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
-    public static List<GroupData> singleRandomGroup()  {
+    public static List<GroupData> singleRandomGroup() {
         return List.of(new GroupData()
                 .withName(CommonFunctions.randomString(10))
                 .withHeader(CommonFunctions.randomString(20))
@@ -59,7 +59,7 @@ public class GroupCreationTests extends TestBase {
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
 
-        //var newUiGroups = app.groups().getList();
+        //newUiGroups = app.groups().getList();
     }
 
     public static List<GroupData> negativeGroupProvider() {

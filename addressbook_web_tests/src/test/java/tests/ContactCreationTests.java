@@ -34,40 +34,49 @@ public class ContactCreationTests extends TestBase {
         }*/
 
         ObjectMapper mapper = new ObjectMapper();
+
         var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<ContactData>>() {
         });
         result.addAll(value);
         return result;
     }
 
+    public static List<ContactData> singleRandomContact() throws IOException {
+        return List.of(new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withMiddleName(CommonFunctions.randomString(20))
+                .withLastName(CommonFunctions.randomString(30))
+                .withNicknameName(CommonFunctions.randomString(40)));
+    }
+
     @ParameterizedTest
-    @MethodSource("contactProvider")
-    public void canCreateMultipleContacts(ContactData contact) {
-        var oldContacts = app.contacts().getList();
+    @MethodSource("singleRandomContact")
+    public void canCreateContact(ContactData contact) {
+        var oldContacts = app.hbm().getContactList();
         app.contacts().createNewContact(contact);
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newContacts.sort(compareById);
+        var maxId = newContacts.get(newContacts.size() - 1).id();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withMiddleName("").withNicknameName("").withPhoto(""));
-        expectedList.sort(compareById);
+        expectedList.add(contact.withId(maxId));
         Assertions.assertEquals(newContacts, expectedList);
     }
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "firstname'", "", "", "", CommonFunctions.randomFile("src/test/resources/images/"))));
+                new ContactData("", "firstname'", "", "", "")));
         return result;
     }
 
     @ParameterizedTest
     @MethodSource("negativeContactProvider")
     public void canNotCreateContacts(ContactData contact) {
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         app.contacts().createNewContact(contact);
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         Assertions.assertEquals(newContacts, oldContacts);
     }
 }
