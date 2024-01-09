@@ -16,6 +16,7 @@ public class ApplicationManager {
     private ContactsHelper contacts;
     private Properties properties;
 
+    private JdbcHelper jdbc;
     public void init(String browser, Properties properties) {
         this.properties = properties;
         if (driver == null) {
@@ -61,6 +62,13 @@ public class ApplicationManager {
         } catch (NoSuchElementException exception) {
             return false;
         }
+    }
+
+    public JdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new JdbcHelper(this);
+        }
+        return jdbc;
     }
 
 }
