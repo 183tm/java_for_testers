@@ -26,7 +26,7 @@ public class ContactRemoveTests extends TestBase {
 
 
     @Test
-    public void canRemoveAllContactAtOnce() {
+     void canRemoveAllContactAtOnce() {
         if (app.hbm().getContactCount() == 0) {
             app.hbm().createContact(new ContactData("", "firstname",
                     "middlename", "lastname", "nickname"));

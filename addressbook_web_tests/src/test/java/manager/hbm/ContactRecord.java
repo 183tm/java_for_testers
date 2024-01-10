@@ -46,9 +46,9 @@ public class ContactRecord {
     public String photo = new String();
     public String notes = new String();
 
-    public Date created = new Date();
-    public Date modified = new Date();
-    public String deprecated = "0000-00-00 00:00:00";
+   // public Date created = new Date();
+   // public Date modified = new Date();
+    //public String deprecated = "0000-00-00 00:00:00";
 
     public ContactRecord() {
     }

@@ -87,6 +87,7 @@ public class ContactsHelper extends HelperBase {
         selectAllContacts();
         removedSelectedContacts();
         closeAlert();
+        openHomePage();
     }
 
     private void selectAllContacts() {

@@ -102,7 +102,7 @@ public class HibernateHelper extends HelperBase {
         });
     }
 
-    public void createContact(ContactData contactData){
+    public void createContact(ContactData contactData) {
         sessionFactory.inSession(session -> {
             session.getTransaction().begin();
             session.persist(convert(contactData));
