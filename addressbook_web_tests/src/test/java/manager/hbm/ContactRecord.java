@@ -1,12 +1,9 @@
 package manager.hbm;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
+
 
 @Entity
 @Table(name = "addressbook")
@@ -49,8 +46,9 @@ public class ContactRecord {
     public String photo = new String();
     public String notes = new String();
 
-    //public Date deprecated = new Date();
-
+    public Date created = new Date();
+    public Date modified = new Date();
+    public String deprecated = "0000-00-00 00:00:00";
 
     public ContactRecord() {
     }

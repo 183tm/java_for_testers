@@ -22,7 +22,7 @@ public record ContactData(String id, String firstname, String middlename, String
     }
 
     public ContactData withId(String id) {
-        return new ContactData(id, this.firstname, this.middlename, this.lastname, nickname);
+        return new ContactData(id, this.firstname, this.middlename, this.lastname, this.nickname);
     }
 
     /*public ContactData withPhoto(String photo) {

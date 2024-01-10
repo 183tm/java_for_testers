@@ -26,10 +26,10 @@ public class ContactsHelper extends HelperBase {
         type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
         type(By.name("nickname"), contact.nickname());
-        //attach(By.name("photo"), contact.photo());
     }
 
     public void createNewContact(ContactData contact) {
+        openHomePage();
         addNewContact();
         fillContactForm(contact);
         submitContact();

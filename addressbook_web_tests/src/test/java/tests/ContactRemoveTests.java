@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class ContactRemoveTests extends TestBase {
     @Test
     public void canRemoveContact() {
@@ -28,11 +27,11 @@ public class ContactRemoveTests extends TestBase {
 
     @Test
     public void canRemoveAllContactAtOnce() {
-        if (app.contacts().getContactCount() == 0) {
-            app.contacts().createNewContact(new ContactData("", "firstname",
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "firstname",
                     "middlename", "lastname", "nickname"));
         }
         app.contacts().removeAllContact();
-        Assertions.assertEquals(0, app.contacts().getContactCount());
+        Assertions.assertEquals(0,app.hbm().getContactCount());
     }
 }

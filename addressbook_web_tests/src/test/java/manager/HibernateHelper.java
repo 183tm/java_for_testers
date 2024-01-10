@@ -12,21 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateHelper extends HelperBase {
+
     private SessionFactory sessionFactory;
 
     public HibernateHelper(ApplicationManager manager) {
         super(manager);
 
+
         sessionFactory = new Configuration()
-                //.addAnnotatedClass(Book.class)
-                .addAnnotatedClass(ContactRecord.class)
                 .addAnnotatedClass(GroupRecord.class)
-                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
+                .addAnnotatedClass(ContactRecord.class)
+                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
                 .setProperty(AvailableSettings.USER, "root")
                 .setProperty(AvailableSettings.PASS, "")
-                // Create a new SessionFactory
                 .buildSessionFactory();
-
     }
 
     static List<GroupData> convertList(List<GroupRecord> records) {
@@ -37,8 +36,21 @@ public class HibernateHelper extends HelperBase {
         return result;
     }
 
+    static List<ContactData> convertContactList(List<ContactRecord> records) {
+        List<ContactData> result = new ArrayList<>();
+        for (var record : records) {
+            result.add(convert(record));
+        }
+        return result;
+    }
+
     private static GroupData convert(GroupRecord record) {
         return new GroupData("" + record.id, record.name, record.header, record.footer);
+    }
+
+    private static ContactData convert(ContactRecord record) {
+        return new ContactData("" + record.id, record.firstname, record.middlename,
+                record.lastname, record.nickname);
     }
 
     private static GroupRecord convert(GroupData data) {
@@ -49,7 +61,16 @@ public class HibernateHelper extends HelperBase {
         return new GroupRecord(Integer.parseInt(id), data.name(), data.header(), data.footer());
     }
 
-    public List<GroupData> getGrouplist() {
+    private static ContactRecord convert(ContactData contact) {
+        var id = contact.id();
+        if ("".equals(id)) {
+            id = "0";
+        }
+        return new ContactRecord(Integer.parseInt(id), contact.firstname(), contact.middlename(),
+                contact.lastname(), contact.nickname());
+    }
+
+    public List<GroupData> getGroupList() {
         return convertList(sessionFactory.fromSession(session -> {
             return session.createQuery("from GroupRecord", GroupRecord.class).list();
         }));
@@ -67,19 +88,6 @@ public class HibernateHelper extends HelperBase {
             session.persist(convert(groupData));
             session.getTransaction().commit();
         });
-
-    }
-
-    static List<ContactData> convertContactList(List<ContactRecord> records) {
-        List<ContactData> result = new ArrayList<>();
-        for (var record : records) {
-            result.add(convertContact(record));
-        }
-        return result;
-    }
-
-    private static ContactData convertContact(ContactRecord record) {
-        return new ContactData("" + record.id, record.firstname, record.middlename, record.lastname, record.nickname);
     }
 
     public List<ContactData> getContactList() {
@@ -88,26 +96,17 @@ public class HibernateHelper extends HelperBase {
         }));
     }
 
-    private static ContactRecord convert(ContactData data) {
-        var id = data.id();
-        if ("".equals(id)) {
-            id = "0";
-        }
-        return new ContactRecord(Integer.parseInt(id), data.firstname(), data.middlename(), data.lastname(), data.nickname());
-    }
-
     public long getContactCount() {
         return sessionFactory.fromSession(session -> {
             return session.createQuery("select count (*) from ContactRecord", Long.class).getSingleResult();
         });
     }
 
-    public void createContact(ContactData contactData) {
+    public void createContact(ContactData contactData){
         sessionFactory.inSession(session -> {
             session.getTransaction().begin();
             session.persist(convert(contactData));
             session.getTransaction().commit();
         });
     }
-
 }
