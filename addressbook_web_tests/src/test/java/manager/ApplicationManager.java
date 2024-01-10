@@ -13,7 +13,7 @@ public class ApplicationManager {
     protected WebDriver driver;
     private LoginHelper session;
     private GroupHelper groups;
-    private ContactsHelper contacts;
+    private ContactHelper contacts;
     private Properties properties;
     private JdbcHelper jdbc;
     private HibernateHelper hbm;
@@ -49,9 +49,9 @@ public class ApplicationManager {
         return groups;
     }
 
-    public ContactsHelper contacts() {
+    public ContactHelper contacts() {
         if (contacts == null) {
-            contacts = new ContactsHelper(this);
+            contacts = new ContactHelper(this);
         }
         return contacts;
     }

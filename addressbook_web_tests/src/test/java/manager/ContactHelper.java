@@ -1,15 +1,17 @@
 package manager;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ContactsHelper extends HelperBase {
+public class ContactHelper extends HelperBase {
 
-    public ContactsHelper(ApplicationManager manager) {
+    public ContactHelper(ApplicationManager manager) {
         super(manager);
     }
 
@@ -28,12 +30,35 @@ public class ContactsHelper extends HelperBase {
         type(By.name("nickname"), contact.nickname());
     }
 
+    private void removeSelectedContactFromGroup() {
+        click(By.name("remove"));
+    }
+
     public void createNewContact(ContactData contact) {
         openHomePage();
         addNewContact();
         fillContactForm(contact);
         submitContact();
         openHomePage();
+    }
+    public void createNewContact(ContactData contact, GroupData group) {
+        addNewContact();
+        fillContactForm(contact);
+        selectGroup(group);
+        submitContact();
+        openHomePage();
+    }
+
+    private void selectGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
+    }
+
+    private void selectGroupForAdd(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
+    private void selectGroupFilter(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
     public void removeContact(ContactData contact) {
@@ -112,5 +137,24 @@ public class ContactsHelper extends HelperBase {
                     .withLastName(lastname));
         }
         return contacts;
+    }
+
+    public void addContactInGroup(GroupData group, ContactData contact) {
+        openHomePage();
+        selectGroupForAdd(group);
+        selectedContact(contact);
+        submitAddContactInGroup();
+        openHomePage();
+    }
+
+    private void submitAddContactInGroup() {
+        click(By.xpath("//input[@name='add']"));
+    }
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        openHomePage();
+        selectGroupFilter(group);
+        selectedContact(contact);
+        removeSelectedContactFromGroup();
     }
 }

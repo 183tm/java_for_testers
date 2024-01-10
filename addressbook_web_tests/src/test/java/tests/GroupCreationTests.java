@@ -43,7 +43,7 @@ public class GroupCreationTests extends TestBase {
 
 
     @ParameterizedTest
-    @MethodSource("singleRandomGroup")
+    @MethodSource("groupProvider")
     public void canCreateGroup(GroupData group) {
         var oldGroups = app.jdbc().getGroupList();
         app.groups().createGroup(group);

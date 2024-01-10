@@ -3,7 +3,9 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import rustqaadressbook.common.CommonFunctions;
@@ -78,5 +80,33 @@ public class ContactCreationTests extends TestBase {
         app.contacts().createNewContact(contact);
         var newContacts = app.hbm().getContactList();
         Assertions.assertEquals(newContacts, oldContacts);
+    }
+
+    @Test
+    void canCreateContact() {
+        var contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withMiddleName(CommonFunctions.randomString(20))
+                .withLastName(CommonFunctions.randomString(30))
+                .withNicknameName(CommonFunctions.randomString(40));
+        app.contacts().createNewContact(contact);
+    }
+
+    @Test
+    public void canCreateContactInGroup() {
+        var contact = new ContactData()
+                .withFirstName(CommonFunctions.randomString(10))
+                .withMiddleName(CommonFunctions.randomString(20))
+                .withLastName(CommonFunctions.randomString(30))
+                .withNicknameName(CommonFunctions.randomString(40));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name'", "", ""));
+        }
+        var group = app.hbm().getGroupList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().createNewContact(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
 }
