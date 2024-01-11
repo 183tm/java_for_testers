@@ -44,12 +44,17 @@ public class ContactModificationTest extends TestBase {
         var index = rnd.nextInt(oldContacts.size());
         var contact = oldContacts.get(index);
         var group = app.hbm().getGroupList().get(0);
-        var expectedContactListInGroup = new ArrayList<>(oldContacts);
+        //var expectedContactListInGroup = new ArrayList<>(oldContacts);
+        var oldContactsInGroup = app.hbm().getContactsInGroup(group);
+        var expectedContactListInGroup = new ArrayList<>(oldContactsInGroup);
+        if (!expectedContactListInGroup.contains(contact)) {
+            expectedContactListInGroup.add(contact);
+        }
         if (app.hbm().checkContactInGroup(group, contact)) {
             app.contacts().removeContactFromGroup(contact, group);
         }
         app.contacts().addContactInGroup(group, contact);
-        var newContacts = app.hbm().getContactList();
+        var newContacts = app.hbm().getContactsInGroup(group);
         var newContactListInGroup = new ArrayList<>(newContacts);
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
@@ -70,12 +75,14 @@ public class ContactModificationTest extends TestBase {
         var index = rnd.nextInt(oldContacts.size());
         var contact = oldContacts.get(index);
         var group = app.hbm().getGroupList().get(0);
-        var expectedContactListInGroup = new ArrayList<>(oldContacts);
+        var oldContactsInGroup = app.hbm().getContactsInGroup(group);
+        var expectedContactListInGroup = new ArrayList<>(oldContactsInGroup);
+        expectedContactListInGroup.remove(contact);
         if (!app.hbm().checkContactInGroup(group, contact)) {
             app.contacts().addContactInGroup(group, contact);
         }
         app.contacts().removeContactFromGroup(contact, group);
-        var newContacts = app.hbm().getContactList();
+        var newContacts = app.hbm().getContactsInGroup(group);
         var newContactListInGroup = new ArrayList<>(newContacts);
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
