@@ -22,9 +22,6 @@ public class ContactInfoTests extends TestBase {
                     .withAddress("Kamchatskaya")
                     .withEmail("testovaya1")
                     .withEmail2("testovaya2")
-                    .withEmail3("testovaya3")
-                    .withEmail("testovaya1")
-                    .withEmail2("testovaya2")
                     .withEmail3("testovaya3"));
         }
         var contacts = app.hbm().getContactList();
