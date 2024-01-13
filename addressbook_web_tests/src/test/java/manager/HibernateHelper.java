@@ -49,7 +49,11 @@ public class HibernateHelper extends HelperBase {
                 .withHome(record.home)
                 .withMobile(record.mobile)
                 .withWork(record.work)
-                .withSecondary(record.phone2);
+                .withSecondary(record.phone2)
+                .withAddress(record.address)
+                .withEmail(record.email)
+                .withEmail2(record.email2)
+                .withEmail3(record.email3);
     }
 
     private static GroupRecord convert(GroupData data) {
@@ -65,8 +69,9 @@ public class HibernateHelper extends HelperBase {
         if ("".equals(id)) {
             id = "0";
         }
-        return new ContactRecord(Integer.parseInt(id), contact.firstname(), contact.middlename(),
-                contact.lastname(), contact.nickname());
+        return new ContactRecord(Integer.parseInt(id), contact.firstname(), contact.middlename(), contact.lastname(),
+                contact.nickname(), contact.home(), contact.mobile(), contact.work(), contact.secondary(), contact.address(),
+                contact.email(), contact.email2(), contact.email3());
     }
 
     public List<GroupData> getGroupList() {

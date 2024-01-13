@@ -1,6 +1,5 @@
 package manager;
 
-import jakarta.persistence.MapKeyJoinColumns;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
@@ -32,6 +31,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
         type(By.name("nickname"), contact.nickname());
+        type(By.name("home"), contact.home());
+        type(By.name("mobile"), contact.mobile());
+        type(By.name("work"), contact.work());
+        type(By.name("phone2"), contact.secondary());
+        type(By.name("address"), contact.address());
+        type(By.name("email"), contact.email());
+        type(By.name("email2"), contact.email2());
+        type(By.name("email3"), contact.email2());
     }
 
     private void removeSelectedContactFromGroup() {
@@ -45,6 +52,7 @@ public class ContactHelper extends HelperBase {
         submitContact();
         openHomePage();
     }
+
     public void createNewContact(ContactData contact, GroupData group) {
         addNewContact();
         fillContactForm(contact);
@@ -164,16 +172,52 @@ public class ContactHelper extends HelperBase {
 
     public String getPhones(ContactData contact) {
         return manager.driver.findElement(By.xpath(
-                String.format("//input[@id='%s']/../../td[6]",contact.id()))).getText();
+                String.format("//input[@id='%s']/../../td[6]", contact.id()))).getText();
     }
 
-    public Map<String,String> getPhones() {
-        var result = new HashMap<String,String>();
-        List< WebElement> rows = manager.driver.findElements(By.name("entry"));
-        for (WebElement row: rows) {
+    public Map<String, String> getPhones() {
+        openHomePage();
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
             var id = row.findElement(By.ById.tagName("input")).getAttribute("id");
-            var phones  = row.findElements(By.tagName("td")).get(5).getText();
+            var phones = row.findElements(By.tagName("td")).get(5).getText();
             result.put(id, phones);
+        }
+        return result;
+    }
+
+    public String getAddress(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[3]", contact.id()))).getText();
+    }
+
+    public Map<String, String> getAddress() {
+        openHomePage();
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.ById.tagName("input")).getAttribute("id");
+            var adress = row.findElements(By.tagName("td")).get(3).getText();
+            result.put(id, adress);
+        }
+        return result;
+    }
+
+
+    public String getEmails(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../../td[4]", contact.id()))).getText();
+    }
+
+    public Map<String, String> getEmails() {
+        openHomePage();
+        var result = new HashMap<String, String>();
+        List<WebElement> rows = manager.driver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            var id = row.findElement(By.ById.tagName("input")).getAttribute("id");
+            var emails = row.findElements(By.tagName("td")).get(4).getText();
+            result.put(id, emails);
         }
         return result;
     }
