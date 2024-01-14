@@ -28,8 +28,8 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='login-box']/div/div/div[4]/a"));
     }
 
-    public void endOfRegistration(String realName, String password) {
-        type(By.name("realname"), realName);
+    public void endOfRegistration(String username, String password) {
+        type(By.name("realname"), username);
         type(By.name("password"), password);
         type(By.name("password_confirm"), password);
         click(By.cssSelector("button[type='submit']"));
