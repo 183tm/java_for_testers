@@ -1,5 +1,6 @@
 package manager;
 
+import io.qameta.allure.Step;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
@@ -41,10 +42,12 @@ public class ContactHelper extends HelperBase {
         type(By.name("email3"), contact.email2());
     }
 
+    @Step
     private void removeSelectedContactFromGroup() {
         click(By.name("remove"));
     }
 
+    @Step
     public void createNewContact(ContactData contact) {
         openHomePage();
         addNewContact();
@@ -53,6 +56,7 @@ public class ContactHelper extends HelperBase {
         openHomePage();
     }
 
+    @Step
     public void createNewContact(ContactData contact, GroupData group) {
         addNewContact();
         fillContactForm(contact);
@@ -73,6 +77,7 @@ public class ContactHelper extends HelperBase {
         new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
+    @Step
     public void removeContact(ContactData contact) {
         openHomePage();
         selectedContact(contact);
@@ -81,6 +86,7 @@ public class ContactHelper extends HelperBase {
         openHomePage();
     }
 
+    @Step
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
         initContactModification(contact);
@@ -89,6 +95,7 @@ public class ContactHelper extends HelperBase {
         openHomePage();
     }
 
+    @Step
     private void removedSelectedContacts() {
         manager.driver.findElement(By.xpath("//input[contains(@value,'Delete')]")).click();
     }
@@ -119,6 +126,7 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
+    @Step
     public void removeAllContact() {
         openHomePage();
         selectAllContacts();
@@ -127,6 +135,7 @@ public class ContactHelper extends HelperBase {
         openHomePage();
     }
 
+    @Step
     private void selectAllContacts() {
         var checkboxes = manager.driver.findElements(By.name("selected[]"));
         for (var checkbox : checkboxes) {
@@ -151,6 +160,7 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    @Step
     public void addContactInGroup(GroupData group, ContactData contact) {
         openHomePage();
         selectGroupForAdd(group);
@@ -163,6 +173,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@name='add']"));
     }
 
+    @Step
     public void removeContactFromGroup(ContactData contact, GroupData group) {
         openHomePage();
         selectGroupFilter(group);
