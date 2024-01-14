@@ -10,8 +10,11 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.mikemybytes:junit5-formatted-source-tests:1.0.0'
+    implementation 'com.mikemybytes:junit5-formatted-source:1.0.0'
+    implementation 'com.mikemybytes:junit5-formatted-source-parent:1.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
     testImplementation "com.squareup.okhttp3:okhttp:4.12.0"
     testImplementation "com.squareup.okhttp3:okhttp-urlconnection:4.12.0"
